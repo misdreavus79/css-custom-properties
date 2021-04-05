@@ -1,65 +1,53 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { useState, useRef } from "react";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const jsMutator = useRef(null);
+  const changeColor = () => {
+    jsMutator.current.style.setProperty("--js-color", "orange");
+    
+  };
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+    <>
+      <section className={styles.firstBlock}>
+        <h2>Example 1: Global Variables</h2>
+        <p className={styles.rootClasses}>
+          These were set up at the <code>:root</code> level, so they apply
+          everywhere.
         </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+      </section>
+      <section className={styles.secondBlock}>
+        <h2>Example 2: Local Variables</h2>
+        <p className={styles.localClasses}>
+          These were set up at the selector level, so they apply everywhere{" "}
+          <code>.localClasses</code> is used.
+        </p>
+      </section>
+      <section className={styles.thirdBlock}>
+        <h2>Example 3: The Cascade</h2>
+        <p className={styles.cascadeClasses}>
+          An example of a preveiously declared variable having a global effect
+          once updated later in the cascade.
+        </p>
+      </section>
+      <section className={styles.foruthBlock}>
+        <h2>Example 4: Interaction with JavaScript</h2>
+        <p className={styles.jsClasses} ref={jsMutator}>
+          JavaScript has access to these variables, and can use them and abuse
+          them as it sees fit.
+        </p>
+        <button onClick={changeColor}>Change my color!</button>
+      </section>
+      <section className={styles.fifthBlock}>
+        <h2>Example 5: Content-Awareness</h2>
+        <p className={styles.caClasses}>
+          CSS applies the styles available to <code>.caClasses</code>.
+        </p>
+        <p className={`${styles.caClasses} ${styles.contentAwareness}`}>
+          If, however, <code>.contentAwareness</code> is present, it applies
+          those styles.
+        </p>
+      </section>
+    </>
+  );
 }
